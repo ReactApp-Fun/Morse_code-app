@@ -1,0 +1,38 @@
+.display-main{
+    display: flex;
+    gap: 10px;
+}
+
+.display-text{
+    border: 3px solid #444444;
+    border-radius: 4px;
+    width: 400px;
+    height: 300px;
+    background-color: #313131;
+    color: #fff;
+    overflow-y: scroll;
+}
+
+.display-text::-webkit-scrollbar{
+    width: 6px;
+    background-color: #444444;
+}
+
+.display-inside-table{
+    word-wrap: break-word;
+}
+
+.display-morse{
+    border: 3px solid #444444;
+    border-radius: 4px;
+    width: 400px;
+    height: 300px;
+    background-color: #313131;
+    color: #fff;
+    overflow-y: scroll;
+}
+
+.display-morse::-webkit-scrollbar{
+    width: 6px;
+    background-color: #444444;
+}
