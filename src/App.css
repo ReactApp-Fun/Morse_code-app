@@ -1,0 +1,32 @@
+.app {
+  max-width: 70%;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+textarea,
+input {
+  resize: none;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+label {
+  margin-left: 10px;
+  font-size: 14px;
+}
