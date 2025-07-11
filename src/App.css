@@ -1,8 +1,15 @@
 .app {
-  max-width: 70%;
+  max-width: 80%;
+  height: 100vh;
   margin: 0 auto;
-  padding: 20px;
   text-align: center;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.app h1{
+  margin: 10px 0 0 0;
 }
 
 button {

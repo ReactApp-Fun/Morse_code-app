@@ -12,7 +12,7 @@ const ControlButtons = ({
   isPlaying,
 }) => {
   return (
-    <div style={{ marginTop: "10px" }}>
+    <div style={{ margin: "0 0 10px 0" }}>
       <button
         onClick={onClear}
         style={{ marginRight: "10px", padding: "10px", backgroundColor: "#dc3545", color: "white", border: "none", borderRadius: "5px" }}

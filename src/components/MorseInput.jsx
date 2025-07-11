@@ -84,7 +84,7 @@ const MorseInput = ({ onMorseInput, onCurrentMorseChange, disabled }) => {
   };
 
   return (
-    <div>
+    <div >
       <button
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
