@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 const MorseInput = ({ onMorseInput, onCurrentMorseChange, disabled }) => {
   const [mouseDownTime, setMouseDownTime] = useState(null);
+  const [keyDownTime, setKeyDownTime] = useState(null); // Theo dõi thời gian giữ phím Enter
   const [currentMorse, setCurrentMorse] = useState("");
   const [dashThreshold, setDashThreshold] = useState(200);
   const audioContextRef = useRef(null);
@@ -40,6 +41,7 @@ const MorseInput = ({ onMorseInput, onCurrentMorseChange, disabled }) => {
     }, duration));
   };
 
+  // Xử lý khi nhấn chuột
   const handleMouseDown = () => {
     setMouseDownTime(Date.now());
   };
@@ -50,12 +52,10 @@ const MorseInput = ({ onMorseInput, onCurrentMorseChange, disabled }) => {
       const isDash = duration > dashThreshold;
       const morse = isDash ? "-" : ".";
 
-      // Phát âm thanh
       playBeep(isDash ? 180 : 60).catch((err) => {
         console.error("Lỗi phát âm thanh:", err);
       });
 
-      // Cập nhật tổ hợp Morse
       const newMorse = currentMorse + morse;
       setCurrentMorse(newMorse);
       onCurrentMorseChange(newMorse);
@@ -64,6 +64,32 @@ const MorseInput = ({ onMorseInput, onCurrentMorseChange, disabled }) => {
     }
   };
 
+  // Xử lý khi nhấn phím Enter
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !disabled) {
+      setKeyDownTime(Date.now());
+    }
+  };
+
+  const handleKeyUp = (e) => {
+    if (e.key === "Enter" && keyDownTime && !disabled) {
+      const duration = Date.now() - keyDownTime;
+      const isDash = duration > dashThreshold;
+      const morse = isDash ? "-" : ".";
+
+      playBeep(isDash ? 180 : 60).catch((err) => {
+        console.error("Lỗi phát âm thanh:", err);
+      });
+
+      const newMorse = currentMorse + morse;
+      setCurrentMorse(newMorse);
+      onCurrentMorseChange(newMorse);
+
+      setKeyDownTime(null);
+    }
+  };
+
+  // Xử lý khi currentMorse thay đổi
   useEffect(() => {
     if (currentMorse) {
       const timer = setTimeout(() => {
@@ -83,8 +109,18 @@ const MorseInput = ({ onMorseInput, onCurrentMorseChange, disabled }) => {
     }
   };
 
+  // Thêm event listener cho phím Enter
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
+    };
+  }, [handleKeyDown, handleKeyUp, disabled]);
+
   return (
-    <div >
+    <div>
       <button
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
